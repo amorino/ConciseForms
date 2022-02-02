@@ -38,10 +38,10 @@ let settingsReducer = Reducer<
   case let .authorizationResponse(.success(granted)):
     state.sendNotifications = granted
     return granted
-    ? environment.userNotifications
-      .registerForRemoteNotifications()
-      .fireAndForget()
-    : .none
+      ? environment.userNotifications
+        .registerForRemoteNotifications()
+        .fireAndForget()
+      : .none
 
   case .binding(\.$displayName):
     state.displayName = String(state.displayName.prefix(16))
@@ -91,7 +91,7 @@ let settingsReducer = Reducer<
 
 struct TCAFormView: View {
   let store: Store<SettingsState, SettingsAction>
-  
+
   var body: some View {
     WithViewStore(self.store) { viewStore in
       Form {
@@ -114,9 +114,8 @@ struct TCAFormView: View {
             }
           }
         }
-        
+
         Button("Reset") {
-//          viewStore.send(.binding(.set(\.$isLoading, true)))
           viewStore.send(.resetButtonTapped)
         }
       }
